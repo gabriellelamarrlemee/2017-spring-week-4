@@ -34,10 +34,15 @@ function dataLoaded(err,trips,stations){
 	var tripsByType = cf.dimension(function(d){return d.userType});
 
 	var allTrips = tripsByType.filter(null).top(Infinity),
-		registeredTrips = tripsByType.filter('Registered').top(Infinity),
-		casualTrips = tripsByType.filter('Casual').top(Infinity);
+			registeredTrips = tripsByType.filter('Registered').top(Infinity),
+			casualTrips = tripsByType.filter('Casual').top(Infinity);
 
-	
+	//timeseries( d3.select('#plot-1') ); //this is the same thing as below but requires an additional data argument
+	d3.select('#plot-1').datum(registeredTrips).call(timeseries); //this binds the data directly
+	d3.select('#plot-2').datum(allTrips).call(timeseries); //this binds the data directly
+	d3.select('#plot-3').datum(casualTrips).call(timeseries); //this binds the data directly
+
+
 }
 
 function parseTrips(d){
